@@ -27,3 +27,11 @@ void vector_v1_double_free(p_s_vector_v1_double p_vector){
 	free(p_vector);
 	p_vector=NULL;
 }
+
+void vector_v1_double_set(p_s_vector_v1_double p_vector, size_t i,double v){
+
+	if(i<p_vector->size){
+		p_vector->data[i] = v;
+	}
+
+}
