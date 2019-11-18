@@ -1,6 +1,6 @@
 all : vectorC
 
-monprogramme : test_vector_v1_double.o vector_v1_double.o
+vectorC : test_vector_v1_double.o vector_v1_double.o
 	gcc test_vector_v1_double.o vector_v1_double.o -o vectorC
 
 vector_v1_double.o: vector_v1_double.c vector_v1_double.h
