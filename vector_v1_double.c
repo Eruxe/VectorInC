@@ -33,5 +33,16 @@ void vector_v1_double_set(p_s_vector_v1_double p_vector, size_t i,double v){
 	if(i<p_vector->size){
 		p_vector->data[i] = v;
 	}
+}
 
+double get(p_s_vector_v1_double p_vector, size_t i){
+	if ( i >= p_vector->size) return -123456789.987654321;
+	return p_vector->data[i];
+
+}
+
+void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
+	if (i < p_vector->size){
+		p_vector->data[i] = 0.0;
+	}
 }
