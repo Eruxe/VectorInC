@@ -41,6 +41,21 @@ double get(p_s_vector_v1_double p_vector, size_t i){
 
 }
 
+void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
+
+	//verifier que i est possible dans la data
+	
+	//Verifier l'adresse apres realloc pour ne pas avoir de bug
+	p_vector->data = realloc((p_vector->size+1)*sizeof(double));
+
+	for(int j=p_vector->size-1;j>i;j--){
+		p_vector->data[j]=p_vector->data[j-1];
+	}
+
+	p_vector->data[i]=v;
+
+}
+
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
 	if (i < p_vector->size){
 		p_vector->data[i] = 0.0;
