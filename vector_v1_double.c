@@ -43,17 +43,26 @@ double get(p_s_vector_v1_double p_vector, size_t i){
 
 void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 
-	//verifier que i est possible dans la data
 	
-	//Verifier l'adresse apres realloc pour ne pas avoir de bug
-	p_vector->data = realloc((p_vector->size+1)*sizeof(double));
+	//verifier que i est possible dans la data
+	if (i < p_vector->size){
+		p_vector->data =  realloc((p_vector->size+1)*sizeof(double));
+		
 
-	for(size_t j=p_vector->size-1;j>i;j--){
-		p_vector->data[j]=p_vector->data[j-1];
+		for(size_t j=p_vector->size-1;j>i;j--){
+			p_vector->data[j]=p_vector->data[j-1];
+		}
+		p_vector->data[i] = v;
+
+	} else {
+		p_vector->data =  realloc((p_vector->size+1)*sizeof(double));
+		p_vector->data[i]=v;
+
 	}
+	
 
-	p_vector->data[i]=v;
-
+	//Verifier l'adresse apres realloc pour ne pas avoir de bug
+	
 }
 
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
