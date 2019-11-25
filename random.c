@@ -9,3 +9,8 @@ double random_double(double a, double b){
 
 }
 
+int random_int(int a, int b){
+
+    return (int) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
+
+}
