@@ -72,7 +72,7 @@ void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
 }
 
 void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v){
-	p_vector->data[p_vector->size - 1];
+	p_vector->data[p_vector->size - 1] = v;
 }
 
 void vector_v1_double_pop_back(p_s_vector_v1_double p_vector){
