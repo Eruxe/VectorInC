@@ -25,4 +25,4 @@ test_vector_v1_double.o : test_vector_v1_double.c
 	gcc test_vector_v1_double.c -c -o test_vector_v1_double.o
 
 clean :
-	rm -f * .o vectorC
+	rm -f * .o vectorC test_random benchvectorv1double
