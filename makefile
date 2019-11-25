@@ -1,4 +1,4 @@
-all : vectorC vectoCv2 test_random benchvectorv1double
+all : vectorC vectorCv2 test_random benchvectorv1double
 
 benchvectorv1double: benchvectorv1double.o vector_v1_double.o random.o
 	gcc benchvectorv1double.o vector_v1_double.o random.o -o benchvectorv1double
