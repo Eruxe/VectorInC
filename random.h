@@ -1,7 +1,8 @@
 #ifndef __RANDOM__
 #define __RANDOM__
 
-#include <ctypes.h>
+#include <ctype.h>
+#include <stdlib.h>
 
 double random_double(double a, double b);
 float random_float(float a, float b);
