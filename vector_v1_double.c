@@ -46,7 +46,7 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 	
 	//verifier que i est possible dans la data
 	if (i < p_vector->size){
-		p_vector->data =  realloc((p_vector->size+1)*sizeof(double));
+		p_vector->data =  realloc(p_vector->data,(p_vector->size+1)*sizeof(double));
 		
 
 		for(size_t j=p_vector->size-1;j>i;j--){
@@ -55,7 +55,7 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 		p_vector->data[i] = v;
 
 	} else {
-		p_vector->data =  realloc((p_vector->size+1)*sizeof(double));
+		p_vector->data =  realloc(p_vector->data, (p_vector->size+1)*sizeof(double));
 		p_vector->data[i]=v;
 
 	}
