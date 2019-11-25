@@ -1,4 +1,4 @@
-all : vectorC
+all : vectorC test_random
 
 test_random: test_random.o random.o
 	gcc test_random.o random.o -o test_random
