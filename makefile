@@ -1,4 +1,7 @@
-all : vectorC test_random
+all : vectorC test_random benchvectorv1double
+
+benchvectorv1double: benchvectorv1double.o vector_v1_double.o random.o
+	gcc benchvectorv1double.o vector_v1_double.o random.o -o benchvectorv1double
 
 test_random: test_random.o random.o
 	gcc test_random.o random.o -o test_random
@@ -6,6 +9,9 @@ test_random: test_random.o random.o
 vectorC : test_vector_v1_double.o vector_v1_double.o
 	gcc test_vector_v1_double.o vector_v1_double.o -o vectorC
 
+benchvectorv1double.o: benchvectorv1double.c
+	gcc benchvectorv1double.o -c -o benchvectorv1double.c
+	
 random.o: random.c random.h
 	gcc random.c -c -o random.o
 
