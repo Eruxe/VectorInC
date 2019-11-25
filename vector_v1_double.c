@@ -66,6 +66,7 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 }
 
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
+	// TO - DO : on realloue un tableau plus petit
 	if (i < p_vector->size){
 		p_vector->data[i] = 0.0;
 	}
@@ -76,16 +77,19 @@ void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v){
 }
 
 void vector_v1_double_pop_back(p_s_vector_v1_double p_vector){
+	// TO-DO : on realloue un tableau plus petit
 	p_vector->data[p_vector->size - 1] = 0.0;
 }
 
 void vector_v1_double_clear(p_s_vector_v1_double p_vector){
+	// On met à null le pointeur sur data
 	for (size_t i = 0; i < p_vector->size; i++){
 		p_vector->data[i] = 0.0;
 	} 
 }
 
 int vector_v1_double_empty(p_s_vector_v1_double p_vector){
+	// On vérifie si la data est NULL
 	int flag = 1;
 	for (size_t i = 0; i < p_vector->size; i++){
 		if (p_vector->data[i] != 0.0)  {
