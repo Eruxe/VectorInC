@@ -24,3 +24,9 @@ double random_double(double a, double b){
 unsigned char random_uchar(unsigned char a, unsigned char b){
     return (unsigned char) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
 }
+
+void random_init_string(unsigned char * c, size_t n){
+    for(int i=0;i<n;i++){
+        *(c+i) = random_uchar('A','Z');
+    }
+}
