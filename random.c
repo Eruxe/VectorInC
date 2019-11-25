@@ -5,14 +5,12 @@
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 
-double random_double(double a, double b){
-
+int random_int(int a, int b){
+    return (int) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
 }
 
-int random_int(int a, int b){
-
-    return (int) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
-
+size_t random_size_t(size_t a, size_t b){
+    return (size_t) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
 }
 
 float random_float(float a, float b){
@@ -21,4 +19,8 @@ float random_float(float a, float b){
 
 double random_double(double a, double b){
     return (((double)rand() / (double)RAND_MAX) * (MAX(a,b)-MIN(a,b)))+MIN(a,b);
+}
+
+unsigned char random_uchar(unsigned char a, unsigned char b){
+    return (unsigned char) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
 }
