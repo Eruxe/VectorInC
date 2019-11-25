@@ -14,3 +14,7 @@ int random_int(int a, int b){
     return (int) (rand() % (MAX(a,b)-MIN(a,b)+1))+MIN(a,b);
 
 }
+
+float random_float(float a, float b){
+    return (((float)rand() / (float)RAND_MAX) * MAX(a,b)-MIN(a,b))+MIN(a,b);
+}
