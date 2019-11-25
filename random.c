@@ -1,8 +1,8 @@
 #include "random.h"
 #include <time.h>
 #include <stdlib.h>
-
-srand(time(NULL));
+#define MAX(a,b) ((a) < (b) ? (b) : (a))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 
 double random_double(double a, double b){
