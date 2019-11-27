@@ -56,9 +56,12 @@ void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 		p_vector->data[i] = v;
 
 	} else {
-		p_vector->data =  realloc(p_vector->data, (++p_vector->size) * sizeof(double));
-		p_vector->data[i]=v;
-
+		double *temp = realloc(p_vector->data, (++p_vector->size) * sizeof(double));
+		if (temp != NULL){
+			p_vector->data =  temp;
+			p_vector->data[i]=v;
+		}
+		
 	}
 	
 
