@@ -7,10 +7,10 @@
 p_s_vector_v2_double vector_v2_double_alloc(){
 	p_s_vector_v2_double p_vector = malloc(sizeof(s_vector_v2_double));
 	p_vector->capacity = 16;
-	p_vector->data =malloc(p_vector->capacity * sizeof(double));
+	p_vector->data = malloc(p_vector->capacity * sizeof(double));
 
 
-	if(p_vector->data==NULL)
+	if(p_vector->data == NULL)
 		return NULL;
 
 	for(size_t i=0;i<n;i++){
@@ -47,52 +47,30 @@ double get(p_s_vector_v2_double p_vector, size_t i){
 
 void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
 
+	// TO - DO : faire la fonction	
 	
-	//verifier que i est possible dans la data
-	if (i < p_vector->size){
-		p_vector->data =  realloc(p_vector->data,(p_vector->size+1)*sizeof(double));
-		
-
-		for(size_t j=p_vector->size-1;j>i;j--){
-			p_vector->data[j]=p_vector->data[j-1];
-		}
-		p_vector->data[i] = v;
-
-	} else {
-		p_vector->data =  realloc(p_vector->data, (p_vector->size+1)*sizeof(double));
-		p_vector->data[i]=v;
-
-	}	
 }
 
 void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
-	if (i < p_vector->capacity){
-		p_vector->data[i] = 0.0;
-	}
+	// TO - DO : refaire la fonction	
 }
 
 void vector_v2_double_push_back(p_s_vector_v2_double p_vector, double v){
-	p_vector->data[p_vector->capacity - 1] = v;
+	// TO - DO : refaire la fonction	
 }
 
 void vector_v2_double_pop_back(p_s_vector_v2_double p_vector){
-	p_vector->data[p_vector->capacity - 1] = 0.0;
+	// TO - DO : refaire la fonction	
 }
 
 void vector_v2_double_clear(p_s_vector_v2_double p_vector){
-	for (size_t i = 0; i < p_vector->capacity; i++){
-		p_vector->data[i] = 0.0;
-	} 
+	// TO - DO : refaire la fonction	
+ 
 }
 
 int vector_v2_double_empty(p_s_vector_v2_double p_vector){
-	int flag = 1;
-	for (size_t i = 0; i < p_vector->capacity; i++){
-		if (p_vector->data[i] != 0.0)  {
-			return 0;
-		}
-	}
-	return flag;
+	// TO - DO : refaire la fonction	
+
 }
 
 size_t vector_v2_double_size(p_s_vector_v2_double p_vector){
