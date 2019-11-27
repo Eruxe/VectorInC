@@ -30,7 +30,7 @@ void vector_v1_double_free(p_s_vector_v1_double p_vector){
 
 void vector_v1_double_set(p_s_vector_v1_double p_vector, size_t i,double v){
 
-	if(i<p_vector->size){
+	if( i < p_vector->size){
 		p_vector->data[i] = v;
 	}
 }
@@ -44,59 +44,73 @@ double get(p_s_vector_v1_double p_vector, size_t i){
 void vector_v1_double_insert(p_s_vector_v1_double p_vector, size_t i, double v){
 
 	
-	//verifier que i est possible dans la data
 	if (i < p_vector->size){
-		p_vector->data =  realloc(p_vector->data,(p_vector->size+1)*sizeof(double));
-		
-
+		double * temp = realloc(p_vector->data, (++p_vector->size) * sizeof(double));
+		if (temp != NULL){
+			p_vector->data = temp;
+		}
+	
 		for(size_t j=p_vector->size-1;j>i;j--){
 			p_vector->data[j]=p_vector->data[j-1];
 		}
 		p_vector->data[i] = v;
 
 	} else {
-		p_vector->data =  realloc(p_vector->data, (p_vector->size+1)*sizeof(double));
+		p_vector->data =  realloc(p_vector->data, (++p_vector->size) * sizeof(double));
 		p_vector->data[i]=v;
 
 	}
 	
 
-	//Verifier l'adresse apres realloc pour ne pas avoir de bug
 	
 }
 
 void vector_v1_double_erase(p_s_vector_v1_double p_vector, size_t i){
-	// TO - DO : on realloue un tableau plus petit
-	if (i < p_vector->size){
-		p_vector->data[i] = 0.0;
+	// On copie la data puis on realloue
+	if (i < p_vector->size && p_vector->size > 1){
+		double *temp = malloc(sizeof(double) * (--p_vector->size));
+
+		for (size_t k = 0; k < p_vector->size+1; k++){
+			if (k < i){
+				temp[k] = p_vector->data[k];
+			} else if (k > i){
+				temp[k] = p_vector->data[k+1];
+			}
+		}
+
+		
+
+	} else if (i < p_vector->size && p_vector->size == 1){
+		p_vector->data = NULL;
 	}
 }
 
 void vector_v1_double_push_back(p_s_vector_v1_double p_vector, double v){
-	p_vector->data[p_vector->size - 1] = v;
+	double *temp =  realloc(p_vector->data, (++p_vector->size) * sizeof(double));
+	if (temp != NULL){
+		p_vector->data = temp;
+		p_vector->data[p_vector->size - 1] = v;
+	}
 }
 
 void vector_v1_double_pop_back(p_s_vector_v1_double p_vector){
-	// TO-DO : on realloue un tableau plus petit
-	p_vector->data[p_vector->size - 1] = 0.0;
+	if (p_vector->size ==  1){
+		p_vector->data = NULL;
+	} else {
+		double *temp = realloc(p_vector->data, (--p_vector->size) * sizeof(double));
+		if (temp != NULL){
+			p_vector->data = temp;
+		}
+	}
 }
 
 void vector_v1_double_clear(p_s_vector_v1_double p_vector){
-	// On met à null le pointeur sur data
-	for (size_t i = 0; i < p_vector->size; i++){
-		p_vector->data[i] = 0.0;
-	} 
+	p_vector->data = NULL;
+	p_vector->size = 0;
 }
 
 int vector_v1_double_empty(p_s_vector_v1_double p_vector){
-	// On vérifie si la data est NULL
-	int flag = 1;
-	for (size_t i = 0; i < p_vector->size; i++){
-		if (p_vector->data[i] != 0.0)  {
-			return 0;
-		}
-	}
-	return flag;
+	return p_vector->data == NULL;
 }
 
 size_t vector_v1_double_size(p_s_vector_v1_double p_vector){
