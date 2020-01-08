@@ -1,5 +1,8 @@
 all : vectorC vectorCv2 test_random bench_vector_v1_double
 
+my_struct: my_struct.o test_my_struct.o
+	gcc my_struct.o test_my_struct.o -g -o my_struct
+
 bench_vector_v1_double: bench_vector_v1_double.o vector_v1_double.o random.o
 	gcc bench_vector_v1_double.o vector_v1_double.o random.o -g -o bench_vector_v1_double
 
@@ -11,6 +14,13 @@ vectorCv2 : test_vector_v2_double.o vector_v2_double.o
 
 vectorC : test_vector_v1_double.o vector_v1_double.o
 	gcc test_vector_v1_double.o vector_v1_double.o -g -o vectorC
+
+test_my_struct.o : test_my_struct.c
+	gcc test_my_struct.c -c -Wall -g -o test_my_struct.o
+
+my_struct.o: my_struct.c my_struct.h
+	gcc my_struct.c -c -Wall -g -o my_struct.o
+
 
 bench_vector_v1_double.o: bench_vector_v1_double.c
 	gcc bench_vector_v1_double.c -c -Wall -g -o bench_vector_v1_double.o
