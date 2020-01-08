@@ -2,6 +2,8 @@
 #include "random.h"
 #include "vector_v1_double.h"
 
+#define MAXINB 100
+
 void insert_erase_random(p_s_vector_v1_double p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t size = p_vector->size;
@@ -11,23 +13,52 @@ void insert_erase_random(p_s_vector_v1_double p_vector, size_t n){
 }
 
 void insert_erase_head(p_s_vector_v1_double p_vector, size_t n){
-
+    for(int i=0;i<n;i++){
+        size_t size = p_vector->size;
+        vector_v1_double_erase(p_vector,size-1);
+    }
 }
 
 void insert_erase_tail(p_s_vector_v1_double p_vector, size_t n){
-
+    for(int i=0;i<n;i++){
+        vector_v1_double_erase(p_vector,0);
+    }
 }
 
 void read_write_random(p_s_vector_v1_double p_vector, size_t n){
-
+    for(int i=0;i<n;i++){
+        size_t index = random_int(0,p_vector->size-1);
+        vector_v1_double_erase(p_vector,index);
+        vector_v1_double_insert(p_vector, index, random_double(0,MAXINB));
+        printf("index %d -> %.2lf \n",index,get(p_vector,index));
+    }
 }
 
 void read_write_sequential(p_s_vector_v1_double p_vector, size_t n){
-
+    for(int i=0;i<n;i++){
+        size_t index = i%p_vector->size;
+        vector_v1_double_erase(p_vector,index);
+        vector_v1_double_insert(p_vector, index, random_double(0,MAXINB));
+        printf("index %d -> %.2lf \n",index,get(p_vector,index));
+    }
 }
 
 void bubble_sort(p_s_vector_v1_double p_vector, size_t n){
+    //ECRITURE
+     for(int i=0;i<n;i++){
+         read_write_sequential(p_vector,p_vector->size);
+     }
 
+    //SORTING
+     for(int i=0;i<p_vector->size-1;i++){
+         for(int j=0;j<p_vector->size-1-i;j++){
+             if(p_vector->data[j]>p_vector->data[j+1]){
+                 double memo=p_vector->data[j];
+                 p_vector->data[j]=p_vector->data[j+1];
+                 p_vector->data[j+1]=memo;
+             }
+         }
+     }
 }
 
 int main(int argc, char *argv[]){
@@ -57,7 +88,7 @@ int main(int argc, char *argv[]){
         //Init du vector
         p_s_vector_v1_double vector1 = vector_v1_double_alloc(init_size);
         for(size_t i=0;i<init_size;i++){
-            vector_v1_double_set(vector1,i,random_double(0,100));
+            vector_v1_double_set(vector1,i,random_double(0,MAXINB));
         }
 
         //affichage du vector avant modif
@@ -71,6 +102,21 @@ int main(int argc, char *argv[]){
         //Modif du vector
         if(strcmp(test_type,"insert_erase_random") == 0){
             insert_erase_random(vector1,n);
+        }
+        else if(strcmp(test_type,"insert_erase_head") == 0){
+            insert_erase_head(vector1,n);
+        }
+        else if(strcmp(test_type,"insert_erase_tail") == 0){
+            insert_erase_tail(vector1,n);
+        }
+        else if(strcmp(test_type,"read_write_random") == 0){
+            read_write_random(vector1,n);
+        }
+        else if(strcmp(test_type,"read_write_sequential") == 0){
+            read_write_sequential(vector1,n);
+        }
+        else if(strcmp(test_type,"bubble_sort") == 0){
+            bubble_sort(vector1,n);
         }
         else{
             printf("Test type inexistant\n");
