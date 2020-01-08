@@ -56,30 +56,64 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
 				p_vector->data = temp;
 			}
 			
-			for (size_t j = p_vector->size - 1; j > i; j--){
+			for (size_t j = p_vector->capacity - 1; j > i; j--){
 				p_vector->data[j] = p_vector->data[j-1];
 			}
+
 			p_vector->data[i] = v;
 		} else {
-			for (size_t j = p_vector->size - 1; j > i; j--){
+			for (size_t j = p_vector->capacity - 1; j > i; j--){
 				p_vector->data[j] = p_vector->data[j-1];
+				printf("je passe par la\n");
 			}
 			p_vector->data[i] = v;
 		}
+		p_vector->size++;
 	}
-	p_vector->size++;
 }
 
 void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
-	// TO - DO : refaire la fonction	
+	if (i < p_vector->size && p_vector->size > 1){
+		if (p_vector->size <= p_vector->capacity / 4){
+			p_vector->capacity /= 2;
+			double *temp = malloc(sizeof(double) * p_vector->capacity);
+			// On copie les données
+			for (int j = 0; j < p_vector->size; j++){
+				temp[j] = p_vector->data[j];
+			}
+			p_vector->data = temp;
+
+		} else {
+			for (size_t k = i+1; k < p_vector->size; k++){
+				p_vector->data[k-1] = p_vector->data[k];
+			}
+
+			p_vector->size-=1;
+			
+			double *arr = malloc(sizeof(double) * p_vector->size);
+			for (int i = 0; i < p_vector->size; i++){
+				arr[i] = p_vector->data[i];
+			}
+			p_vector->data = arr;
+		
+		}
+	
+		
+	p_vector->size--;	
+
+	} else if (i < p_vector->size && p_vector->size == 1){
+		p_vector->data = NULL;
+		p_vector->size = 0;
+	}
+
 }
 
 void vector_v2_double_push_back(p_s_vector_v2_double p_vector, double v){
-	// TO - DO : refaire la fonction	
+	vector_v2_double_insert(p_vector, p_vector->size, v);	
 }
 
 void vector_v2_double_pop_back(p_s_vector_v2_double p_vector){
-	// TO - DO : refaire la fonction
+	vector_v2_double_erase(p_vector, p_vector->size);
 }
 
 void vector_v2_double_clear(p_s_vector_v2_double p_vector){

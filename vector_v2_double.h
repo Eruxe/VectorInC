@@ -6,7 +6,7 @@
 typedef struct {
 	double *data;
 	size_t size;
-	size_t capacity
+	size_t capacity;
 } s_vector_v2_double;
 
 typedef s_vector_v2_double* p_s_vector_v2_double;
