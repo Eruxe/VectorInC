@@ -64,7 +64,6 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
 		} else {
 			for (size_t j = p_vector->capacity - 1; j > i; j--){
 				p_vector->data[j] = p_vector->data[j-1];
-				printf("je passe par la\n");
 			}
 			p_vector->data[i] = v;
 		}
