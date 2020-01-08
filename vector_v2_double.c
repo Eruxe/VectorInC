@@ -5,6 +5,7 @@
 
 
 p_s_vector_v2_double vector_v2_double_alloc(){
+	int n=16;
 	p_s_vector_v2_double p_vector = malloc(sizeof(s_vector_v2_double));
 	p_vector->capacity = 16;
 	p_vector->data = malloc(p_vector->capacity * sizeof(double));
@@ -66,7 +67,7 @@ void vector_v2_double_clear(p_s_vector_v2_double p_vector){
 	p_vector->capacity = 16;
 	
 	double *temp = realloc(p_vector->data, (p_vector->capacity) * sizeof(double));
-	if (temp != null){
+	if (temp != NULL){
 		p_vector->data = temp;
 	}
 	
