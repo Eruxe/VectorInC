@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "vector_v2_double.h"
+#include "vector.h"
 
 
 p_s_vector_v2_double vector_v2_double_alloc(){
@@ -87,7 +87,6 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
 				p_vector->data[k-1] = p_vector->data[k];
 			}
 
-			p_vector->size-=1;
 			
 			double *arr = malloc(sizeof(double) * p_vector->size);
 			for (int i = 0; i < p_vector->size; i++){
@@ -139,4 +138,3 @@ int vector_v2_double_empty(p_s_vector_v2_double p_vector){
 size_t vector_v2_double_size(p_s_vector_v2_double p_vector){
 	return p_vector->capacity; // pour renvoyer le nb de slot utilisé faire : p_vector->size;
 }
-
