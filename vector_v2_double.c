@@ -47,7 +47,27 @@ double get(p_s_vector_v2_double p_vector, size_t i){
 }
 
 void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
-	// TO - DO : refaire la fonction	
+	if (i < p_vector->capacity){
+		if (p_vector->capacity == p_vector->size){
+			p_vector->capacity *= 2; 
+			double *temp = realloc(p_vector->data, p_vector->capacity * sizeof(double));
+			
+			if (temp != NULL){
+				p_vector->data = temp;
+			}
+			
+			for (size_t j = p_vector->size - 1; j > i; j--){
+				p_vector->data[j] = p_vector->data[j-1];
+			}
+			p_vector->data[i] = v;
+		} else {
+			for (size_t j = p_vector->size - 1; j > i; j--){
+				p_vector->data[j] = p_vector->data[j-1];
+			}
+			p_vector->data[i] = v;
+		}
+	}
+	p_vector->size++;
 }
 
 void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
