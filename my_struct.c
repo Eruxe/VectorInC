@@ -20,18 +20,20 @@ void my_struct_free(p_s_my_struct p_vector){
 }
 
 void my_struct_copy(p_s_my_struct p_dest, p_s_my_struct p_src){
+  p_dest->chaine = malloc(sizeof(char) * STRSIZE);
   strcpy(p_dest->chaine, p_src->chaine);
   p_dest->nb = p_src->nb;
 }
 
 void my_struct_randoms_init(p_s_my_struct p_vector){
   p_vector->nb = random_double(0, MAXVAL);
+  p_vector->chaine = malloc(sizeof(char) * STRSIZE);
   random_init_string(p_vector->chaine, STRSIZE);
 }
 
 int my_struct_cmp(p_s_my_struct p_vector_a, p_s_my_struct p_vector_b){
   if (p_vector_a->nb == p_vector_b->nb){
-    return strcmp(p_vector_a->chaine, p_vector_b->chaine) == 0;
+    return strcmp(p_vector_a->chaine, p_vector_b->chaine);
   } else {
     return p_vector_a->nb - p_vector_b->nb;
   }
