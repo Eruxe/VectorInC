@@ -1,49 +1,49 @@
 #include <stdio.h>
 #include "random.h"
-#include "vector_v2_double.h"
+#include "vector.h"
 
 #define MAXINB 100
 
-void insert_erase_random(p_s_vector_v2_double p_vector, size_t n){
+void insert_erase_random(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t size = p_vector->size;
-        vector_v2_double_erase(p_vector,random_int(0,size-1));
+        vector_erase(p_vector,random_int(0,size-1));
     }
 
 }
 
-void insert_erase_head(p_s_vector_v2_double p_vector, size_t n){
+void insert_erase_head(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t size = p_vector->size;
-        vector_v2_double_erase(p_vector,size-1);
+        vector_erase(p_vector,size-1);
     }
 }
 
-void insert_erase_tail(p_s_vector_v2_double p_vector, size_t n){
+void insert_erase_tail(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
-        vector_v2_double_erase(p_vector,0);
+        vector_erase(p_vector,0);
     }
 }
 
-void read_write_random(p_s_vector_v2_double p_vector, size_t n){
+void read_write_random(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t index = random_int(0,p_vector->size-1);
-        vector_v2_double_erase(p_vector,index);
-        vector_v2_double_insert(p_vector, index, random_double(0,MAXINB));
+        vector_erase(p_vector,index);
+        vector_insert(p_vector, index, random_double(0,MAXINB));
         printf("index %d -> %.2lf \n",index,get(p_vector,index));
     }
 }
 
-void read_write_sequential(p_s_vector_v2_double p_vector, size_t n){
+void read_write_sequential(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t index = i%p_vector->size;
-        vector_v2_double_erase(p_vector,index);
-        vector_v2_double_insert(p_vector, index, random_double(0,MAXINB));
+        vector_erase(p_vector,index);
+        vector_insert(p_vector, index, random_double(0,MAXINB));
         printf("index %d -> %.2lf \n",index,get(p_vector,index));
     }
 }
 
-void bubble_sort(p_s_vector_v2_double p_vector, size_t n){
+void bubble_sort(p_s_vector p_vector, size_t n){
     //ECRITURE
      for(int i=0;i<n;i++){
          read_write_sequential(p_vector,p_vector->size);
@@ -86,9 +86,9 @@ int main(int argc, char *argv[]){
         printf("n: %lu \n",n);
 
         //Init du vector
-        p_s_vector_v2_double vector1 = vector_v2_double_alloc();
+        p_s_vector vector1 = vector_alloc();
         for(size_t i=0;i<init_size;i++){
-            vector_v2_double_set(vector1,i,random_double(0,MAXINB));
+            vector_set(vector1,i,random_double(0,MAXINB));
         }
 
         //affichage du vector avant modif

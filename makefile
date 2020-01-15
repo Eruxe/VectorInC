@@ -10,7 +10,7 @@ bench_vector_v2_double: bench_vector_v2_double.o vector_v2_double.o random.o
 	gcc bench_vector_v2_double.o vector_v2_double.o random.o -g -o bench_vector_v2_double
 
 bench_vector: bench_vector.o vector.o random.o
-	gcc bench_vector.o vector_v1_double.o random.o -g -o bench_vector
+	gcc bench_vector.o vector.o random.o -g -o bench_vector
 
 test_random: test_random.o random.o
 	gcc test_random.o random.o -g -o test_random
