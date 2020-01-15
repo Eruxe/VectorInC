@@ -7,7 +7,7 @@ int main(int argc, char *argv[]){
 	/*
 	 * Partie insertion des éléments dans le vecteur
 	 */
-	p_s_vector p = vector_alloc(16);
+	p_s_vector p = vector_alloc(16, NULL, NULL, NULL);
 
 	size_t adressLeft = (size_t)&p;
 	size_t adressRight = adressLeft+99999;

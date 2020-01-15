@@ -4,7 +4,7 @@
 #include "vector.h"
 
 
-p_s_vector vector_alloc(size_t n){
+p_s_vector vector_alloc(size_t n, void* (*allocator)(), void (*free)(void*), void (*copy)(void*, void*)){
 	p_s_vector p_vector = malloc(sizeof(s_vector));
 	p_vector->capacity = n;
 	p_vector->data = malloc(p_vector->capacity * sizeof(void*));

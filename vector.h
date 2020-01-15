@@ -7,11 +7,14 @@ typedef struct {
 	void **data;
 	size_t size;
 	size_t capacity;
+	void* (*data_alloc)();
+	void (*data_free)(void*);
+	void (*data_cpy)(void*, void*);
 } s_vector;
 
 typedef s_vector* p_s_vector;
 
-p_s_vector vector_alloc(size_t n);
+p_s_vector vector_alloc(size_t n, void* (*allocator)(), void (*free)(void*), void (*copy)(void*, void*));
 
 void vector_free(p_s_vector p_vector);
 
