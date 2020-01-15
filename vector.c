@@ -4,9 +4,9 @@
 #include "vector.h"
 
 
-p_s_vector_v2_double vector_v2_double_alloc(){
+p_s_vector vector_alloc(){
 	int n=16;
-	p_s_vector_v2_double p_vector = malloc(sizeof(s_vector_v2_double));
+	p_s_vector p_vector = malloc(sizeof(s_vector));
 	p_vector->capacity = 16;
 	p_vector->data = malloc(p_vector->capacity * sizeof(double));
 
@@ -23,14 +23,14 @@ p_s_vector_v2_double vector_v2_double_alloc(){
 	return p_vector;
 }
 
-void vector_v2_double_free(p_s_vector_v2_double p_vector){
+void vector_free(p_s_vector p_vector){
 	free(p_vector->data);
 	p_vector->data=NULL;
 	free(p_vector);
 	p_vector=NULL;
 }
 
-void vector_v2_double_set(p_s_vector_v2_double p_vector, size_t i,double v){
+void vector_set(p_s_vector p_vector, size_t i,double v){
 	// On ajoute rien si la capacite est ful
 	if(i < p_vector->capacity){
 		if (p_vector->data[i] == 0.0){
@@ -40,13 +40,13 @@ void vector_v2_double_set(p_s_vector_v2_double p_vector, size_t i,double v){
 	}
 }
 
-double get(p_s_vector_v2_double p_vector, size_t i){
+double get(p_s_vector p_vector, size_t i){
 	if ( i >= p_vector->capacity) return -123456789.987654321;
 	return p_vector->data[i];
 
 }
 
-void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
+void vector_insert(p_s_vector p_vector, size_t i, double v){
 	if (i < p_vector->capacity){
 		if (p_vector->capacity == p_vector->size){
 			p_vector->capacity *= 2; 
@@ -71,7 +71,7 @@ void vector_v2_double_insert(p_s_vector_v2_double p_vector, size_t i, double v){
 	}
 }
 
-void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
+void vector_erase(p_s_vector p_vector, size_t i){
 	if (i < p_vector->size && p_vector->size > 1){
 		if (p_vector->size <= p_vector->capacity / 4){
 			p_vector->capacity /= 2;
@@ -106,15 +106,15 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
 
 }
 
-void vector_v2_double_push_back(p_s_vector_v2_double p_vector, double v){
-	vector_v2_double_insert(p_vector, p_vector->size, v);	
+void vector_push_back(p_s_vector p_vector, double v){
+	vector_insert(p_vector, p_vector->size, v);	
 }
 
-void vector_v2_double_pop_back(p_s_vector_v2_double p_vector){
-	vector_v2_double_erase(p_vector, p_vector->size);
+void vector_pop_back(p_s_vector p_vector){
+	vector_erase(p_vector, p_vector->size);
 }
 
-void vector_v2_double_clear(p_s_vector_v2_double p_vector){
+void vector_clear(p_s_vector p_vector){
 	p_vector->size = 0;
 	p_vector->capacity = 16;
 	
@@ -130,11 +130,11 @@ void vector_v2_double_clear(p_s_vector_v2_double p_vector){
  
 }
 
-int vector_v2_double_empty(p_s_vector_v2_double p_vector){
+int vector_empty(p_s_vector p_vector){
 	return p_vector->size == 0;	
 
 }
 
-size_t vector_v2_double_size(p_s_vector_v2_double p_vector){
+size_t vector_size(p_s_vector p_vector){
 	return p_vector->capacity; // pour renvoyer le nb de slot utilisé faire : p_vector->size;
 }
