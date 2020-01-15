@@ -7,7 +7,7 @@
 p_s_vector vector_alloc(size_t n){
 	p_s_vector p_vector = malloc(sizeof(s_vector));
 	p_vector->capacity = n;
-	p_vector->data = malloc(p_vector->capacity * sizeof(*void));
+	p_vector->data = malloc(p_vector->capacity * sizeof(void*));
 
 
 	if(p_vector->data == NULL)
@@ -29,27 +29,27 @@ void vector_free(p_s_vector p_vector){
 	p_vector=NULL;
 }
 
-void vector_set(p_s_vector p_vector, size_t i,double v){
+void vector_set(p_s_vector p_vector, size_t i,void* v){
 	// On ajoute rien si la capacite est ful
 	if(i < p_vector->capacity){
-		if (p_vector->data[i] == 0.0){
+		if (p_vector->data[i] == NULL){
 			p_vector->size++;
 		} 
 		p_vector->data[i] = v;
 	}
 }
 
-double get(p_s_vector p_vector, size_t i){
-	if ( i >= p_vector->capacity) return -123456789.987654321;
+void* get(p_s_vector p_vector, size_t i){
+	if ( i >= p_vector->capacity) return NULL;
 	return p_vector->data[i];
 
 }
 
-void vector_insert(p_s_vector p_vector, size_t i, double v){
+void vector_insert(p_s_vector p_vector, size_t i, void* v){
 	if (i < p_vector->capacity){
 		if (p_vector->capacity == p_vector->size){
 			p_vector->capacity *= 2; 
-			double *temp = realloc(p_vector->data, p_vector->capacity * sizeof(double));
+			double *temp = realloc(p_vector->data, p_vector->capacity * sizeof(void*));
 			
 			if (temp != NULL){
 				p_vector->data = temp;
@@ -74,7 +74,7 @@ void vector_erase(p_s_vector p_vector, size_t i){
 	if (i < p_vector->size && p_vector->size > 1){
 		if (p_vector->size <= p_vector->capacity / 4){
 			p_vector->capacity /= 2;
-			double *temp = malloc(sizeof(double) * p_vector->capacity);
+			void **temp = malloc(sizeof(void*) * p_vector->capacity);
 			// On copie les données
 			for (int j = 0; j < p_vector->size; j++){
 				temp[j] = p_vector->data[j];
@@ -87,7 +87,7 @@ void vector_erase(p_s_vector p_vector, size_t i){
 			}
 
 			
-			double *arr = malloc(sizeof(double) * p_vector->size);
+			void **arr = malloc(sizeof(void*) * p_vector->size);
 			for (int i = 0; i < p_vector->size; i++){
 				arr[i] = p_vector->data[i];
 			}
@@ -105,7 +105,7 @@ void vector_erase(p_s_vector p_vector, size_t i){
 
 }
 
-void vector_push_back(p_s_vector p_vector, double v){
+void vector_push_back(p_s_vector p_vector, void* v){
 	vector_insert(p_vector, p_vector->size, v);	
 }
 
@@ -117,7 +117,7 @@ void vector_clear(p_s_vector p_vector){
 	p_vector->size = 0;
 	p_vector->capacity = 16;
 	
-	double *temp = realloc(p_vector->data, (p_vector->capacity) * sizeof(double));
+	void **temp = realloc(p_vector->data, (p_vector->capacity) * sizeof(void*));
 	if (temp != NULL){
 		p_vector->data = temp;
 	}
