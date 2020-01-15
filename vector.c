@@ -4,18 +4,17 @@
 #include "vector.h"
 
 
-p_s_vector vector_alloc(){
-	int n=16;
+p_s_vector vector_alloc(size_t n){
 	p_s_vector p_vector = malloc(sizeof(s_vector));
-	p_vector->capacity = 16;
-	p_vector->data = malloc(p_vector->capacity * sizeof(double));
+	p_vector->capacity = n;
+	p_vector->data = malloc(p_vector->capacity * sizeof(*void));
 
 
 	if(p_vector->data == NULL)
 		return NULL;
 
 	for(size_t i=0;i<n;i++){
-		p_vector->data[i] = 0;
+		p_vector->data[i] = NULL;
 	}
 
 	p_vector->size = 0; // Nombre d'element ref au depart
