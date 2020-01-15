@@ -1,7 +1,7 @@
 all : vectorC vectorCv2 test_random bench_vector_v1_double my_struct vector
 
-my_struct: my_struct.o test_my_struct.o
-	gcc my_struct.o test_my_struct.o -g -o my_struct
+my_struct: my_struct.o test_my_struct.o random.o
+	gcc my_struct.o test_my_struct.o random.o -g -o my_struct
 
 bench_vector_v1_double: bench_vector_v1_double.o vector_v1_double.o random.o
 	gcc bench_vector_v1_double.o vector_v1_double.o random.o -g -o bench_vector_v1_double
