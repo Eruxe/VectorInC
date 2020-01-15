@@ -4,14 +4,14 @@
 #define __VECTOR2__
 
 typedef struct {
-	double *data;
+	void **data;
 	size_t size;
 	size_t capacity;
 } s_vector;
 
 typedef s_vector* p_s_vector;
 
-p_s_vector vector_alloc();
+p_s_vector vector_alloc(size_t n);
 
 void vector_free(p_s_vector p_vector);
 
