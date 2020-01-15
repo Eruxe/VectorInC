@@ -49,7 +49,7 @@ void vector_insert(p_s_vector p_vector, size_t i, void* v){
 	if (i < p_vector->capacity){
 		if (p_vector->capacity == p_vector->size){
 			p_vector->capacity *= 2; 
-			double *temp = realloc(p_vector->data, p_vector->capacity * sizeof(void*));
+			void **temp = realloc(p_vector->data, p_vector->capacity * sizeof(void*));
 			
 			if (temp != NULL){
 				p_vector->data = temp;
@@ -124,7 +124,7 @@ void vector_clear(p_s_vector p_vector){
 	
 	// On reinitialise les valeurs à 0
 	for (int i = 0; i < 16; i++){
-		p_vector->data[i] = 0.0;
+		p_vector->data[i] = NULL;
 	}
  
 }
