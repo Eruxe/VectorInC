@@ -15,8 +15,8 @@ bench_vector: bench_vector.o vector.o random.o
 test_random: test_random.o random.o
 	gcc test_random.o random.o -g -o test_random
 
-vector : test_vector.o vector.o
-	gcc test_vector.o vector.o -g -o vector
+vector : test_vector.o vector.o random.o
+	gcc test_vector.o vector.o random.o -g -o vector
 
 vectorCv2 : test_vector_v2_double.o vector_v2_double.o
 	gcc test_vector_v2_double.o vector_v2_double.o -g -o vectorCv2

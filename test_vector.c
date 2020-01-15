@@ -1,45 +1,59 @@
 #include "vector.h"
+#include "random.h"
 #include <stdio.h>
 
 
 int main(int argc, char *argv[]){
+
+	size_t adressLeft = 0;
+	size_t adressRight = 99999;
+	size_t randomAdress1 = random_size_t(adressLeft, adressRight);
+	size_t randomAdress2 = random_size_t(adressLeft, adressRight);
+	size_t randomAdress3 = random_size_t(adressLeft, adressRight);
+
 	/*
 	 * Partie insertion des éléments dans le vecteur
 	 */
-	p_s_vector p = vector_alloc();
+	p_s_vector p = vector_alloc(16);
 
 	// Lecture du vecteur après creation
 	printf("**** Lecture après création ****\n");
 	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %.2lf\n", i, p->data[i]);	
+		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);	
 	}
 
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
-	vector_insert(p, 0, 2.3);
-	printf("Valeur element position 2 : %.2lf\n", get(p, 2));
+
+	vector_insert(p, 0, &randomAdress1);
+
+	printf("Valeur element position 2 : %p\n", get(p, 2));
+
 	printf("*** Lecture après ajout unique ***\n");
 	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %.2lf\n", i, p->data[i]);
+		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
 	}
 
 	// On remplie le vecteur
 	for (int i = 1; i < p->capacity; i++){
-		vector_insert(p, 0, 2.3+i);
+		vector_insert(p, 0, &randomAdress2);
 	}
+
 	printf("*** Lecture après remplissage ***\n");
 	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %.2lf\n", i, p->data[i]);
+		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
 	}
+
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
 
-	vector_insert(p, 3, 10.8);
+	vector_insert(p, 3, &randomAdress3);
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
+
 	printf("*** Lecture après remplissage d'un element en trop ***\n");
 	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %.2lf\n", i, p->data[i]);
+		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
 	}
 
 	/*
@@ -60,7 +74,7 @@ int main(int argc, char *argv[]){
 	 printf("Taille du vecteur : %d\n", p->size);
 	 printf("Capacite du vecteur : %d\n", p->capacity);
 	 for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %.2lf\n", i, p->data[i]);
+		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
 	 }
 	return 0;
 }
