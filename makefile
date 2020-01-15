@@ -1,4 +1,4 @@
-all : vectorC vectorCv2 test_random bench_vector_v1_double bench_vector_v2_double bench_vector my_struct vector
+all : vectorC vectorCv2 test_random bench_vector_v1_double bench_vector_v2_double  my_struct vector
 
 my_struct: my_struct.o test_my_struct.o random.o
 	gcc my_struct.o test_my_struct.o random.o -g -o my_struct
