@@ -4,17 +4,13 @@
 
 
 int main(int argc, char *argv[]){
-
-	size_t adressLeft = 0;
-	size_t adressRight = 99999;
-	size_t randomAdress1 = random_size_t(adressLeft, adressRight);
-	size_t randomAdress2 = random_size_t(adressLeft, adressRight);
-	size_t randomAdress3 = random_size_t(adressLeft, adressRight);
-
 	/*
 	 * Partie insertion des éléments dans le vecteur
 	 */
 	p_s_vector p = vector_alloc(16);
+
+	size_t adressLeft = (size_t)&p;
+	size_t adressRight = adressLeft+99999;
 
 	// Lecture du vecteur après creation
 	printf("**** Lecture après création ****\n");
@@ -25,6 +21,7 @@ int main(int argc, char *argv[]){
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
 
+	size_t randomAdress1 = random_size_t(adressLeft, adressRight);
 	vector_insert(p, 0, &randomAdress1);
 
 	printf("Valeur element position 2 : %p\n", get(p, 2));
@@ -36,6 +33,7 @@ int main(int argc, char *argv[]){
 
 	// On remplie le vecteur
 	for (int i = 1; i < p->capacity; i++){
+		size_t randomAdress2 = random_size_t(adressLeft, adressRight);
 		vector_insert(p, 0, &randomAdress2);
 	}
 
@@ -47,7 +45,9 @@ int main(int argc, char *argv[]){
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
 
+	size_t randomAdress3 = random_size_t(adressLeft, adressRight);
 	vector_insert(p, 3, &randomAdress3);
+
 	printf("Taille du vecteur : %d\n", p->size);
 	printf("Capacite du vecteur : %d\n", p->capacity);
 
