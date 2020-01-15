@@ -1,10 +1,16 @@
-all : vectorC vectorCv2 test_random bench_vector_v1_double my_struct vector
+all : vectorC vectorCv2 test_random bench_vector_v1_double bench_vector_v2_double bench_vector my_struct vector
 
 my_struct: my_struct.o test_my_struct.o random.o
 	gcc my_struct.o test_my_struct.o random.o -g -o my_struct
 
 bench_vector_v1_double: bench_vector_v1_double.o vector_v1_double.o random.o
 	gcc bench_vector_v1_double.o vector_v1_double.o random.o -g -o bench_vector_v1_double
+
+bench_vector_v2_double: bench_vector_v2_double.o vector_v2_double.o random.o
+	gcc bench_vector_v2_double.o vector_v2_double.o random.o -g -o bench_vector_v2_double
+
+bench_vector: bench_vector.o vector.o random.o
+	gcc bench_vector.o vector_v1_double.o random.o -g -o bench_vector
 
 test_random: test_random.o random.o
 	gcc test_random.o random.o -g -o test_random
@@ -27,6 +33,12 @@ my_struct.o: my_struct.c my_struct.h
 
 bench_vector_v1_double.o: bench_vector_v1_double.c
 	gcc bench_vector_v1_double.c -c -Wall -g -o bench_vector_v1_double.o
+
+bench_vector_v2_double.o: bench_vector_v2_double.c
+	gcc bench_vector_v2_double.c -c -Wall -g -o bench_vector_v2_double.o
+
+bench_vector.o: bench_vector.c
+	gcc bench_vector.c -c -Wall -g -o bench_vector.o
 	
 random.o: random.c random.h
 	gcc random.c -c -Wall -g -o random.o
