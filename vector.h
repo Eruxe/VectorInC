@@ -20,7 +20,7 @@ void vector_free(p_s_vector p_vector);
 
 void vector_set(p_s_vector p_vector, size_t i, void* v);
 
-void* get(p_s_vector p_vector, size_t i);
+void get(p_s_vector p_vector, size_t i, void *p_data);
 
 void vector_insert(p_s_vector p_vector, size_t i, void* v);
 

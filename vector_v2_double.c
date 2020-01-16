@@ -83,14 +83,15 @@ void vector_v2_double_erase(p_s_vector_v2_double p_vector, size_t i){
 			p_vector->data = temp;
 
 		} else {
+
 			for (size_t k = i+1; k < p_vector->size; k++){
 				p_vector->data[k-1] = p_vector->data[k];
 			}
 
 			
 			double *arr = malloc(sizeof(double) * p_vector->size);
-			for (int i = 0; i < p_vector->size; i++){
-				arr[i] = p_vector->data[i];
+			for (int j = 0; j < p_vector->size; j++){
+				arr[j] = p_vector->data[j];
 			}
 			p_vector->data = arr;
 		

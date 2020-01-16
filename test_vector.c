@@ -1,80 +1,32 @@
+#include <stdio.h>
+#include <time.h>
 #include "vector.h"
 #include "random.h"
-#include <stdio.h>
+#include "my_struct.h"
 
+#define display_struct(a) \
+	do {\
+        	printf("string struct : %s\n", a->chaine);\
+		printf("nb : %lf\n", a->nb);\
+	} while (0)
 
 int main(int argc, char *argv[]){
 	/*
 	 * Partie insertion des éléments dans le vecteur
 	 */
-	p_s_vector p = vector_alloc(16, NULL, NULL, NULL);
+	srand(time(0));
 
-	size_t adressLeft = (size_t)&p;
-	size_t adressRight = adressLeft+99999;
-
-	// Lecture du vecteur après creation
-	printf("**** Lecture après création ****\n");
-	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);	
-	}
-
-	printf("Taille du vecteur : %d\n", p->size);
-	printf("Capacite du vecteur : %d\n", p->capacity);
-
-	size_t randomAdress1 = random_size_t(adressLeft, adressRight);
-	vector_insert(p, 0, &randomAdress1);
-
-	printf("Valeur element position 2 : %p\n", get(p, 2));
-
-	printf("*** Lecture après ajout unique ***\n");
-	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
-	}
-
-	// On remplie le vecteur
-	for (int i = 1; i < p->capacity; i++){
-		size_t randomAdress2 = random_size_t(adressLeft, adressRight);
-		vector_insert(p, 0, &randomAdress2);
-	}
-
-	printf("*** Lecture après remplissage ***\n");
-	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
-	}
-
-	printf("Taille du vecteur : %d\n", p->size);
-	printf("Capacite du vecteur : %d\n", p->capacity);
-
-	size_t randomAdress3 = random_size_t(adressLeft, adressRight);
-	vector_insert(p, 3, &randomAdress3);
-
-	printf("Taille du vecteur : %d\n", p->size);
-	printf("Capacite du vecteur : %d\n", p->capacity);
-
-	printf("*** Lecture après remplissage d'un element en trop ***\n");
-	for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
-	}
-
-	/*
-	 * Test des fonctions de suppression
-	 */
-
-	 for (int i = 17; i < p->capacity; i++){
-	 	vector_erase(p, 0);
-	 }
-
-	 printf("Taille du vecteur : %d\n", p->size);
-         printf("Capacite du vecteur : %d\n", p->capacity);
-
-	 vector_erase(p, 0);
-	 vector_erase(p, 0);
-	 vector_erase(p, 0);
-	 vector_erase(p, 0);
-	 printf("Taille du vecteur : %d\n", p->size);
-	 printf("Capacite du vecteur : %d\n", p->capacity);
-	 for (int i = 0; i < p->capacity; i++){
-		printf("Valeur %d du vecteur : %p\n", i, p->data[i]);
-	 }
+	p_s_vector p = vector_alloc(16, &my_struct_alloc, &my_struct_free, &my_struct_copy);
+      	p_s_my_struct p0 = my_struct_alloc();
+	my_struct_randoms_init(p0);
+	vector_insert(p, 0, p0);
+	p_s_my_struct p1 = my_struct_alloc();
+	p_s_my_struct p2 = my_struct_alloc();
+	display_struct(p1);	
+	get(p, 0, p1);
+	display_struct(p1);
+	vector_erase(p, 0);
+	get(p, 0, p2);
+	display_struct(p2);	
 	return 0;
 }

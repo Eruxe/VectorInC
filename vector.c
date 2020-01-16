@@ -8,13 +8,16 @@ p_s_vector vector_alloc(size_t n, void* (*allocator)(), void (*free)(void*), voi
 	p_s_vector p_vector = malloc(sizeof(s_vector));
 	p_vector->capacity = n;
 	p_vector->data = malloc(p_vector->capacity * sizeof(void*));
-
+	// On associe les pointeurs sur fonction à la structure
+	p_vector->data_alloc = allocator;
+	p_vector->data_free = free;
+	p_vector->data_cpy = copy;
 
 	if(p_vector->data == NULL)
 		return NULL;
 
 	for(size_t i=0;i<n;i++){
-		p_vector->data[i] = NULL;
+		p_vector->data[i] = p_vector->data_alloc();
 	}
 
 	p_vector->size = 0; // Nombre d'element ref au depart
@@ -23,6 +26,9 @@ p_s_vector vector_alloc(size_t n, void* (*allocator)(), void (*free)(void*), voi
 }
 
 void vector_free(p_s_vector p_vector){
+	for (int i = 0; i < p_vector->capacity; i++){
+		p_vector->data_free(p_vector->data[i]);
+	}
 	free(p_vector->data);
 	p_vector->data=NULL;
 	free(p_vector);
@@ -35,13 +41,13 @@ void vector_set(p_s_vector p_vector, size_t i,void* v){
 		if (p_vector->data[i] == NULL){
 			p_vector->size++;
 		} 
-		p_vector->data[i] = v;
+		p_vector->data_cpy(p_vector->data[i], v);
 	}
 }
 
-void* get(p_s_vector p_vector, size_t i){
-	if ( i >= p_vector->capacity) return NULL;
-	return p_vector->data[i];
+void get(p_s_vector p_vector, size_t i, void *p_data){
+	if ( i >= p_vector->capacity) return;
+	p_vector->data_cpy(p_data, p_vector->data[i]);
 
 }
 
@@ -59,12 +65,12 @@ void vector_insert(p_s_vector p_vector, size_t i, void* v){
 				p_vector->data[j] = p_vector->data[j-1];
 			}
 
-			p_vector->data[i] = v;
+			p_vector->data_cpy(p_vector->data[i], v);
 		} else {
 			for (size_t j = p_vector->capacity - 1; j > i; j--){
 				p_vector->data[j] = p_vector->data[j-1];
 			}
-			p_vector->data[i] = v;
+			p_vector->data_cpy(p_vector->data[i], v);
 		}
 		p_vector->size++;
 	}
@@ -75,10 +81,15 @@ void vector_erase(p_s_vector p_vector, size_t i){
 		if (p_vector->size <= p_vector->capacity / 4){
 			p_vector->capacity /= 2;
 			void **temp = malloc(sizeof(void*) * p_vector->capacity);
+			// On initialise les données 
+			for (int j = 0; j < p_vector->size; j++){
+				temp[j] = p_vector->data_alloc();
+			}
 			// On copie les données
 			for (int j = 0; j < p_vector->size; j++){
-				temp[j] = p_vector->data[j];
+				p_vector->data_cpy(temp[j], p_vector->data[j]);
 			}
+
 			p_vector->data = temp;
 
 		} else {
@@ -88,8 +99,14 @@ void vector_erase(p_s_vector p_vector, size_t i){
 
 			
 			void **arr = malloc(sizeof(void*) * p_vector->size);
-			for (int i = 0; i < p_vector->size; i++){
-				arr[i] = p_vector->data[i];
+			
+			// On initialise les données 
+			for (int j = 0; j < p_vector->size; j++){
+				arr[j] = p_vector->data_alloc();
+			}
+
+			for (int j = 0; j < p_vector->size; j++){
+				p_vector->data_cpy(arr[j], p_vector->data[j]);
 			}
 			p_vector->data = arr;
 		
@@ -124,7 +141,7 @@ void vector_clear(p_s_vector p_vector){
 	
 	// On reinitialise les valeurs à 0
 	for (int i = 0; i < 16; i++){
-		p_vector->data[i] = NULL;
+		p_vector->data[i] = p_vector->data_alloc();
 	}
  
 }
