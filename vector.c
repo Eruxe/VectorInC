@@ -46,7 +46,7 @@ void vector_set(p_s_vector p_vector, size_t i,void* v){
 }
 
 void get(p_s_vector p_vector, size_t i, void *p_data){
-	if ( i >= p_vector->capacity) return;
+	if ( i >= p_vector->capacity || i>=p_vector->size) return;
 	p_vector->data_cpy(p_data, p_vector->data[i]);
 
 }
