@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "random.h"
 #include "vector.h"
+#include "my_struct.h"
+
 
 #define MAXINB 100
 
@@ -29,8 +31,10 @@ void read_write_random(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t index = random_int(0,p_vector->size-1);
         vector_erase(p_vector,index);
-        vector_insert(p_vector, index, random_double(0,MAXINB));
-        printf("index %d -> %.2lf \n",index,get(p_vector,index));
+       	p_s_my_struct p_s;
+	my_struct_randoms_init(p_s);
+	vector_set(vector1,i,p_s);
+       	vector_insert(p_vector, index,p_s);
     }
 }
 
@@ -38,8 +42,10 @@ void read_write_sequential(p_s_vector p_vector, size_t n){
     for(int i=0;i<n;i++){
         size_t index = i%p_vector->size;
         vector_erase(p_vector,index);
-        vector_insert(p_vector, index, random_double(0,MAXINB));
-        printf("index %d -> %.2lf \n",index,get(p_vector,index));
+       	p_s_my_struct p_s;
+	my_struct_randoms_init(p_s);
+	vector_set(vector1,i,p_s);
+       	vector_insert(p_vector, index,p_s);
     }
 }
 
@@ -52,7 +58,7 @@ void bubble_sort(p_s_vector p_vector, size_t n){
     //SORTING
      for(int i=0;i<p_vector->size-1;i++){
          for(int j=0;j<p_vector->size-1-i;j++){
-             if(p_vector->data[j]>p_vector->data[j+1]){
+             if(my_struct_cmp(p_vector->data[j],p_vector->data[j+1])){
                  double memo=p_vector->data[j];
                  p_vector->data[j]=p_vector->data[j+1];
                  p_vector->data[j+1]=memo;
@@ -85,19 +91,15 @@ int main(int argc, char *argv[]){
         printf("init_size: %lu \n",init_size);
         printf("n: %lu \n",n);
 
-        //Init du vector
-        p_s_vector vector1 = vector_alloc();
+        //Init du vectori
+	p_s_my_struct p_s;
+        p_s_vector vector1 = vector_alloc(init_size, &my_struct_alloc, &my_struct_free, &my_struct_copy);
         for(size_t i=0;i<init_size;i++){
-            vector_set(vector1,i,random_double(0,MAXINB));
+		p_s = my_struct_alloc();
+		my_struct_randoms_init(p_s);
+		vector_set(vector1,i,p_s);
         }
 
-        //affichage du vector avant modif
-        printf("Before modification: \n");
-        printf("size: %d \n",vector1->size);
-        for(size_t i=0;i<vector1->size;i++){
-            printf("%.2lf ; ",vector1->data[i]);
-        }
-        printf("\n");
 
         //Modif du vector
         if(strcmp(test_type,"insert_erase_random") == 0){
@@ -125,14 +127,7 @@ int main(int argc, char *argv[]){
 
 
         //Affichage apres modif
-        printf("After modification: \n");
-        printf("size: %d \n",vector1->size);
-        for(size_t i=0;i<vector1->size;i++){
-            printf("%.2lf ; ",vector1->data[i]);
         }
-        printf("\n");
-
-    }
     else{
         printf("pas assez d'arguments \n");
     }

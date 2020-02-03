@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
 	srand(time(0));
 
 	p_s_vector p = vector_alloc(16, &my_struct_alloc, &my_struct_free, &my_struct_copy);
-    p_s_my_struct p0 = my_struct_alloc();
+   	p_s_my_struct p0 = my_struct_alloc();
 	my_struct_randoms_init(p0);
 	vector_insert(p, 0, p0);
 	p_s_my_struct p1 = my_struct_alloc();
